@@ -398,27 +398,103 @@
       margin-top: 40px;
       flex-wrap: wrap;
     }
-    .skill-icon {
-      width: 60px;
-      height: 60px;
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .skill-icon:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 15px var(--primary);
-    }
-    .skill-icon img {
-      max-width: 70%;
-      max-height: 70%;
-      object-fit: contain;
-    }
     
+/* Kontener ikony z ciągłym, delikatnym ruchem unoszenia i rotacji */
+.skill-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #222, #111);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  animation: floatAnimation 4s ease-in-out infinite;
+  /* Ustalanie kolejności warstw */
+  z-index: 0;
+}
+
+/* Animacja unoszenia się z lekką rotacją */
+@keyframes floatAnimation {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-5px) rotate(2deg); }
+  50%  { transform: translateY(0) rotate(0deg); }
+  75%  { transform: translateY(5px) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Warstwa obracającego się tła – unikalny, dynamiczny gradient */
+.skill-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 90deg, transparent 20%, rgba(0,255,157,0.4) 40%, transparent 60%);
+  opacity: 0.2;
+  border-radius: 50%;
+  z-index: -1;
+  animation: rotateBackground 5s linear infinite;
+}
+
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Efekt "ripple" – rozchodząca się fala, która pojawia się przy hoverze */
+.skill-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 1;
+}
+
+.skill-icon:hover::after {
+  animation: rippleEffect 1s forwards;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+/* Zmiana stylu przy hoverze – powiększenie, intensywniejsze cienie i dodatkowy twist dla ikony */
+.skill-icon:hover {
+  transform: scale(1.1) rotate(0deg); /* Skalowanie zachowuje ciągły float z keyframe */
+  box-shadow: 0 0 15px rgba(0,255,157,0.7), 0 0 25px rgba(0,208,255,0.5);
+}
+
+/* Stylizacja obrazka w środku ikony */
+.skill-icon img {
+  position: relative;
+  z-index: 2;
+  width: 60%;
+  height: 60%;
+  transition: transform 0.5s ease;
+}
+
+.skill-icon:hover img {
+  transform: scale(1.2) rotate(10deg);
+
+
+}
     /* Sekcja parallax dla projektów */
     .parallax-section {
       background-size: cover;
@@ -970,11 +1046,16 @@ body.light-theme .hamburger span {
         if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
       }
       draw() {
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+        let particleColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+        if (document.body.classList.contains('light-theme')) {
+          particleColor = '#000';
+        }
+        ctx.fillStyle = particleColor;
+        
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-      }
+      }      
     }
     
     function initParticles() {
