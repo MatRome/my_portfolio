@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio - Mateusz Romek, Data Analyst & Web Developer.">
-  <meta name="keywords" content="Data Analyst, Web Developer, Portfolio, Data Science, Machine Learning, Visualization">
+  <meta name="description" content="Portfolio - Mateusz Romek, Data Analyst.">
+  <meta name="keywords" content="Data Analyst, Portfolio, Data Science, Machine Learning, Visualization">
   <title>Portfolio - Mateusz Romek</title>
   
   <!-- JetBrains Mono Font -->
@@ -757,7 +757,7 @@
     // (5) Funkcja wysyłająca ocenę do Firebase
     function submitRating(projectId, ratingValue) {
       if (hasVoted(projectId)) {
-        showToast("Już oddałeś głos na ten projekt.");
+        showToast("You have already voted for this project.");
         return;
       }
       
@@ -768,10 +768,10 @@
         timestamp: new Date().toISOString()
       }, (error) => {
         if (error) {
-          console.error("Błąd podczas zapisywania głosu: ", error);
+          console.error("Error while saving voice: ", error);
         } else {
           markVoted(projectId);
-          showToast("Twój głos został zapisany!");
+          showToast("Your vote has been recorded!");
         }
       });
     }
@@ -923,9 +923,9 @@
     /* Efekt wpisywania tekstu */
     const typedText = document.getElementById('typed');
     const phrases = [
-      "Transforming data into mesmerizing visualizations...",
+      "Transforming data into amazing visualizations...",
       "Analyzing with precision and passion...",
-      "Creating digital experiences that inspire..."
+      "Enthusiasm for creating new projects..."
     ];
     let currentPhrase = 0;
     let currentLetter = 0;
