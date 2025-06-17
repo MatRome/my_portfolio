@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio - Mateusz Romek, Data Analyst.">
-  <meta name="keywords" content="Data Analyst, Portfolio, Data Science, Machine Learning, Visualization">
+  <meta name="description" content="Portfolio - Mateusz Romek, Data Analyst & Web Developer.">
+  <meta name="keywords" content="Data Analyst, Web Developer, Portfolio, Data Science, Machine Learning, Visualization">
   <title>Portfolio - Mateusz Romek</title>
   
   <!-- JetBrains Mono Font -->
@@ -318,6 +318,86 @@
       transform: scale(1.2) rotate(10deg);
     }
 
+    /* Sekcja kontenera na prace naukowe */
+.papers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+/* Karta pracy naukowej: elastyczny układ, ale wyrównanie do góry */
+.paper-card {
+  display: flex;
+  align-items: flex-start; /* zamiast center, żeby tytuł był wyrównany do góry */
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+body.light-theme .paper-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #333;
+}
+
+/* Obszar na obrazek – zmniejszamy szerokość i wysokość */
+.paper-image {
+  width: 70px;       /* szerokość obrazka */
+  height: 70px;      /* wysokość obrazka */
+  margin-right: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;    /* nie pozwala na zmniejszanie obszaru obrazka w razie braku miejsca */
+}
+
+/* Dopasowanie samego obrazka – zachowanie proporcji */
+.paper-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* można dać 'contain' jeśli chcesz, by całość była widoczna */
+}
+
+/* Kontener na tytuł, opis i przycisk */
+.paper-content {
+  flex: 1;
+}
+
+/* Tytuł pracy naukowej */
+.paper-title {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* Opis pracy naukowej */
+.paper-description {
+  color: #bbb;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Przycisk Quick View */
+.btn-quick-view {
+  background: var(--primary);
+  color: var(--bg);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn-quick-view:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+
     /* Sekcja parallax dla projektów */
     .parallax-section {
       background-size: cover; background-attachment: fixed;
@@ -561,11 +641,38 @@
   
   <!-- Sekcja parallax dla projektów -->
   <div class="parallax-section" style="background-image: url('https://wallscloud.net/img/resize/3440/1440/MM/2022-09-04-web-code-1-53288.jpeg');">
-    <h2>Projects</h2>
+    <h2>Research & Projects</h2>
   </div>
-  
+
+<!-- Sekcja Prac Naukowych -->
+<section id="papers">
+  <h2 class="section-title">Scientific Works</h2>
+  <div class="papers-container">
+    <div class="paper-card">
+      <div class="paper-image">
+        <!-- Ścieżka do miniatury pracy naukowej -->
+        <img src="images/science-paper.png" alt="Miniatura Pracy Naukowej">
+      </div>
+      <div class="paper-content">
+        <h3 class="paper-title">Correlation of TSH levels with inflammatory markers in COVID-19 patients</h3>
+        <p class="paper-description">
+          This study explores the correlation between thyroid-stimulating hormone (TSH) levels and inflammatory markers in patients diagnosed with COVID-19.
+          I was responsible for the statistical analysis, examining relationships and dependencies in the dataset collected by medical
+          students from the Medical University of Silesia in Katowice.
+        </p>
+        <!-- Przycisk do podglądu/ściągnięcia pracy -->
+        <a href="javascript:void(0)" class="btn-quick-view" onclick="alert('In progress of publication...');">
+          Quick View
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
   <!-- Sekcja Projects -->
   <section id="projects">
+    <h2 class="section-title">Projects</h2>
     <div class="projects-container">
       <!-- Projekt 1 -->
       <div class="project-card" id="churn-analysis">
@@ -616,14 +723,14 @@
       </div>
       
       <!-- Projekt 3 -->
-      <div class="project-card" id="heart-disease">
+      <div class="project-card" id="uber-dashboard">
         <div class="project-image">
-          <img src="images/project3.png" alt="EDA – Heart Disease Analysis">
+          <img src="images/project3.png" alt="Uber Analysis Dashboard">
         </div>
-        <h3 class="project-title">EDA – Heart Disease Analysis</h3>
-        <div class="project-tags">R | Statistics</div>
+        <h3 class="project-title">Uber Analysis Dashboard</h3>
+        <div class="project-tags">Power BI</div>
         <p class="project-description">
-          Exploratory analysis of heart disease data. Data cleaning, visualization, and statistical analysis.
+          This project is a Power BI dashboard analyzing Uber trip data. It highlights key metrics like bookings, trip distance, and booking trends.
         </p>
         <div class="rating">
           <i class="fas fa-star" data-value="1"></i>
@@ -632,7 +739,7 @@
           <i class="fas fa-star" data-value="4"></i>
           <i class="fas fa-star" data-value="5"></i>
         </div>
-        <a href="https://matrome.github.io/heart-disease-analysis/"
+        <a href="files/UberDashboard.pdf.pdf"
            class="btn-quick-view" target="_blank">
           Quick View
         </a>
@@ -683,6 +790,29 @@
           Quick View
         </a>
       </div>
+
+              <!-- Projekt 6 -->
+     <div class="project-card" id="heart-disease">
+      <div class="project-image">
+        <img src="images/project6.png" alt="EDA – Heart Disease Analysis">
+      </div>
+      <h3 class="project-title">EDA – Heart Disease Analysis</h3>
+      <div class="project-tags">R | Statistics</div>
+      <p class="project-description">
+       Exploratory analysis of heart disease data. Data cleaning, visualization, and statistical analysis.
+     </p>
+     <div class="rating">
+       <i class="fas fa-star" data-value="1"></i>
+       <i class="fas fa-star" data-value="2"></i>
+       <i class="fas fa-star" data-value="3"></i>
+       <i class="fas fa-star" data-value="4"></i>
+       <i class="fas fa-star" data-value="5"></i>
+     </div>
+     <a href="https://matrome.github.io/heart-disease-analysis/"
+        class="btn-quick-view" target="_blank">
+       Quick View
+      </a>
+     </div>
     </div>
   </section>
   
@@ -757,7 +887,7 @@
     // (5) Funkcja wysyłająca ocenę do Firebase
     function submitRating(projectId, ratingValue) {
       if (hasVoted(projectId)) {
-        showToast("You have already voted for this project.");
+        showToast("Już oddałeś głos na ten projekt.");
         return;
       }
       
@@ -768,10 +898,10 @@
         timestamp: new Date().toISOString()
       }, (error) => {
         if (error) {
-          console.error("Error while saving voice: ", error);
+          console.error("Błąd podczas zapisywania głosu: ", error);
         } else {
           markVoted(projectId);
-          showToast("Your vote has been recorded!");
+          showToast("Twój głos został zapisany!");
         }
       });
     }
@@ -923,9 +1053,9 @@
     /* Efekt wpisywania tekstu */
     const typedText = document.getElementById('typed');
     const phrases = [
-      "Transforming data into amazing visualizations...",
+      "Transforming data into mesmerizing visualizations...",
       "Analyzing with precision and passion...",
-      "Enthusiasm for creating new projects..."
+      "Creating digital experiences that inspire..."
     ];
     let currentPhrase = 0;
     let currentLetter = 0;
